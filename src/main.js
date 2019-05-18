@@ -27,13 +27,17 @@ class App {
 		
 		try {
 			const response = await api.get(`/repos/${repoInput}`);
+
+			const {name, description, html_url, owner: { avatar_url }} = response.data; 
 			
 			this.repositories.push({
-				name: response.data.name,
-				description: response.data.description,
-				avatar_url: response.data.owner.avatar_url,
-				html_url: response.data.html_url,
+				name,
+				description,
+				avatar_url,
+				html_url,
 			});
+
+			this.inputEl.value = '';
 
 			this.render();
 		} catch (err) {
@@ -82,7 +86,6 @@ class App {
 
 			this.listEl.appendChild(listItemEl);
 		});
-		
 	}
 }
 
